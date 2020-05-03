@@ -7,7 +7,7 @@ Note: this package is still in development stage and needs a lot of improvement 
 ### Installation:
 
 ```sh 
-$ composer require impulse/pulsifier
+$ composer require impulse/pulsifier:v1.0.2
 ```
 
 ### Configuration:
