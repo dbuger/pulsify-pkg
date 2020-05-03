@@ -93,7 +93,7 @@ class PulsifyCommand extends Command
                 ],
                 [
                     Str::plural($name),
-                    strtolower(Str::plural($name)),
+                    strtolower(Str::snake(Str::plural($name))),
                     $this->makeMigrationBlueprint()
                 ],
                 $this->getStub("Migration")
