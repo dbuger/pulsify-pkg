@@ -7,7 +7,7 @@
     "require": {},
     "autoload":{
         "psr-4": {
-            "Impulse\\Pulsifier":"src/"
+            "Impulse\\Pulsifier\\":"src/"
         }
     },
     "extra":{
