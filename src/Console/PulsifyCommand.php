@@ -81,7 +81,7 @@ class PulsifyCommand extends Command
     }
 
     public function makeMigration($name){
-        $file_name = date("Y_m_d_his")."create_".strtolower(Str::snake(Str::plural($name)))."_table.php";
+        $file_name = date("Y_m_d_his")."_create_".strtolower(Str::snake(Str::plural($name)))."_table.php";
 
         if(!file_exists(app_path("../database/migrations/${file_name}"))) {
             $this->info("Creating {$name} migration");
