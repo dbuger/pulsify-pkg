@@ -1,0 +1,33 @@
+<?php
+    namespace App\Http\Controllers;
+    use App\User;
+    use GuzzleHttp\Middleware;
+    use Illuminate\Http\Request;
+    use Illuminate\Pagination\Paginator;
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Facade;
+
+    class BaseController extends Controller
+    {
+          protected $currentUser;
+          protected $searchTerm = '';
+          protected $sortBy = 'id';
+          protected $sortDir = 'asc';
+          protected $request;
+          protected $perPage = 0;
+          protected $currentPage = 1;
+          protected $excludeBeforeId = -1;
+          protected $relationShips = [];
+          public function __construct(Request $request)
+          {
+              $this->request = $request;
+              $this->currentUser = null;
+              $this->searchTerm = isset($request->searchQuery) && !empty($request->searchQuery) ? strtoupper($request->searchQuery) : strtoupper($this->searchTerm);
+              $this->sortBy = isset($request->order_by) ? $request->order_by : $this->sortBy;
+              $this->sortDir = isset($request->order_dir) ? $request->order_dir : $this->sortDir;
+              $this->perPage = isset($request->per_page) ? $request->per_page : $this->perPage;
+              $this->currentPage = isset($request->current_page) && $request->current_page != 0 ? $request->current_page : $this->currentPage;
+              $this->excludeBeforeId = isset($request->exclude) && is_numeric($request->exclude) ? $request->exclude : $this->excludeBeforeId;
+              Paginator::currentPageResolver(function () {return $this->currentPage;});
+          }
+}

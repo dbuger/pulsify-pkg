@@ -1,0 +1,8 @@
+foreach($data['{{methodName}}'] as $datum ){
+    $id = isset($datum['id']) ? $datum['id'] : -1;
+    $datum['{{modelNameLowercase}}_id'] = ${{modelNameLowercase}}->id;
+    ${{relatedClassNameLowercase}} = {{relatedClassName}}::updateOrCreate(
+        ['id' => $id],
+        $datum
+    );
+}

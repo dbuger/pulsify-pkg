@@ -1,0 +1,58 @@
+<?php
+namespace App\Http\Controllers;
+
+use Impulse\Pulsifier\Controller\BaseController as PulsifierBaseController;
+use Illuminate\Http\Request;
+use App\{{modelName}};
+{{savableRelationModels}}
+class {{modelName}}Controller extends PulsifierBaseController
+{
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        $this->relationShips = {{relationShips}}
+    }
+
+    public function index()
+    {
+        $query = {{modelName}}::with($this->relationShips)
+            ->when(!empty($this->searchTerm),{{searchMethod}});
+        ${{modelNameLowercasePluralize}} = ($this->perPage != 0) ? $query->paginate($this->perPage) : $query->get();
+        return response(${{modelNameLowercasePluralize}});
+    }
+
+    public function save()
+    {
+        $data = $this->request->all();
+        $id = isset($data['id']) ? $data['id'] : -1;
+
+        ${{modelNameLowercase}} = {{modelName}}::updateOrCreate(
+            ['id' => $id],
+            $data
+        );
+
+        {{savableRelationStub}}
+        if(empty(${{modelNameLowercase}}))
+            return response("An error occur during save",500);
+
+        return $this->get(${{modelNameLowercase}}->id);
+    }
+
+    public function get($id)
+    {
+       ${{modelNameLowercase}} = {{modelName}}::with($this->relationShips)->find($id);
+       if(empty(${{modelNameLowercase}}))
+           return response("Record not found",404);
+       return response(${{modelNameLowercase}});
+    }
+
+    public function destroy($id)
+    {
+        ${{modelNameLowercase}} = {{modelName}}::find($id);
+        if(empty(${{modelNameLowercase}}))
+           return response("Record not found",404);
+        if(!${{modelNameLowercase}}->delete())
+            return response("An error occur during delete",500);
+        return response("Record deleted");
+    }
+}

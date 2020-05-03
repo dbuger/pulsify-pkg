@@ -1,0 +1,6 @@
+if(isset($data['{{methodName}}']) && count($data['{{methodName}}']) != 0){
+    ${{relatedClassNameLowercase}} = ${{modelNameLowercase}}->{{methodName}}->pluck('pivot');
+    $pivoted_ids = ${{relatedClassNameLowercase}}->pluck('{{relatedClassNameLowercase}}_id');
+    $pivoted_ids->concat(collect($data['{{methodName}}'])->pluck('{{relatedClassNameLowercase}}_id'));
+    ${{modelNameLowercase}}->{{methodName}}()->sync($pivoted_ids->unique()->all());
+}

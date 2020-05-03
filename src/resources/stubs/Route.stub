@@ -1,0 +1,7 @@
+Route::prefix('{{modelNameLowercasePluralize}}')->name('{{modelNameLowercasePluralize}}')->group(function(){
+    Route::get('/','{{modelName}}Controller@index')->name('index');
+    Route::get('/get/{id}','{{modelName}}Controller@get')->name('get')->where('id', '[0-9]+');
+    Route::delete('/destroy/{id}','{{modelName}}Controller@destroy')->name('destroy')->where('id', '[0-9]+');
+    Route::post('/save','{{modelName}}Controller@save')->name('save');
+});
+

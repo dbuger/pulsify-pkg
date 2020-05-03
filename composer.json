@@ -1,0 +1,20 @@
+{
+    "name": "impulse/pulsifier",
+    "description": "A laravel command utility for creating migrations, controllers and routes from model",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload":{
+        "psr-4": {
+            "Impulse\\Pulsifier":"src/"
+        }
+    },
+    "extra":{
+        "laravel":{
+            "providers":[
+                "Impulse\\Pulsifier\\PulsifierServiceProvider"
+            ]
+        }   
+    }
+}
